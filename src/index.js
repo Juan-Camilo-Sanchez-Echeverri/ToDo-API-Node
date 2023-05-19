@@ -17,10 +17,6 @@ app.use(express.json());
 //Routes
 app.use('/api/tasks', require('./routes/tasks.routes.js'));
 
-
-//Static Files
-app.use(express.static(path.join(__dirname, 'public')));;
-
 //Starting Server
 app.listen(3000, () => {
     console.log(`Starting server on port ${app.get("port")}`);
