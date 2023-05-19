@@ -7,17 +7,25 @@ const app = express();
 
 const { mongoose } = require('./database.js');
 
-//Settings
+// Settings
 app.set("port", process.env.PORT || 3000);
 
-//Middlewars
+// Middlewares
 app.use(morgan('dev'));
 app.use(express.json());
 
-//Routes
-app.use('/api/tasks', require('./routes/tasks.routes.js'));
+// Enable Cross-Origin Resource Sharing (CORS)
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*"); // Permitir acceso desde cualquier origen
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE"); // Métodos HTTP permitidos
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"); // Encabezados permitidos
+    next();
+});
 
-//Starting Server
+// Routes
+app.use('/', require('./routes/tasks.routes.js'));
+
+// Starting Server
 app.listen(3000, () => {
     console.log(`Starting server on port ${app.get("port")}`);
 });
